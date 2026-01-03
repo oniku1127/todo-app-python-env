@@ -1,0 +1,366 @@
+/* ===== Responsive Design ===== */
+
+/* Tablet Landscape */
+@media (max-width: 1024px) {
+    .app-container {
+        box-shadow: none;
+    }
+
+    .main-content {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .form-container,
+    .filter-container,
+    .todo-list-container {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-lg);
+    }
+
+    .app-title {
+        font-size: var(--font-size-xl);
+    }
+
+    .header-stats {
+        justify-content: center;
+        gap: var(--spacing-md);
+    }
+
+    .main-content {
+        padding: var(--spacing-md);
+    }
+
+    .form-row-multi {
+        flex-direction: column;
+    }
+
+    .form-row-multi .form-group {
+        min-width: auto;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        min-width: auto;
+    }
+
+    .filter-actions {
+        justify-content: center;
+        margin-top: var(--spacing-md);
+    }
+
+    .list-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-md);
+    }
+
+    .list-actions {
+        justify-content: center;
+    }
+
+    .todo-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .todo-actions {
+        opacity: 1;
+        align-self: flex-end;
+        margin-top: var(--spacing-sm);
+    }
+
+    .todo-meta {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: var(--spacing-md);
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 640px) {
+    .app-header {
+        padding: var(--spacing-md);
+    }
+
+    .app-title {
+        font-size: var(--font-size-lg);
+    }
+
+    .app-icon {
+        font-size: var(--font-size-xl);
+    }
+
+    .header-stats {
+        gap: var(--spacing-sm);
+    }
+
+    .stat-item {
+        min-width: 60px;
+    }
+
+    .stat-value {
+        font-size: var(--font-size-lg);
+    }
+
+    .form-container,
+    .filter-container,
+    .todo-list-container {
+        padding: var(--spacing-md);
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
+        min-width: auto;
+    }
+
+    .list-actions {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .list-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .todo-item {
+        padding: var(--spacing-md);
+    }
+
+    .todo-title {
+        font-size: var(--font-size-base);
+    }
+
+    .toast-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+    }
+
+    .toast {
+        max-width: none;
+        margin: 0;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    :root {
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.375rem;
+        --spacing-md: 0.75rem;
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.5rem;
+        --spacing-xxl: 2rem;
+    }
+
+    .app-header {
+        padding: var(--spacing-sm);
+    }
+
+    .main-content {
+        padding: var(--spacing-sm);
+    }
+
+    .section-title {
+        font-size: var(--font-size-lg);
+    }
+
+    .form-container,
+    .filter-container,
+    .todo-list-container {
+        padding: var(--spacing-sm);
+    }
+
+    .todo-item {
+        padding: var(--spacing-sm);
+    }
+
+    .empty-state {
+        padding: var(--spacing-xl);
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+    }
+
+    .modal-content {
+        width: 98%;
+        margin: var(--spacing-xs);
+        max-height: 95vh;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Extra Small Screens */
+@media (max-width: 360px) {
+    .header-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+    }
+
+    .stat-item {
+        min-width: 50px;
+    }
+
+    .todo-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .todo-category,
+    .todo-priority {
+        padding: 2px var(--spacing-xs);
+        font-size: 0.75rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .app-header,
+    .filter-section,
+    .form-actions,
+    .todo-actions,
+    .list-actions,
+    .app-footer,
+    .modal,
+    .toast-container {
+        display: none !important;
+    }
+
+    .app-container {
+        box-shadow: none;
+        max-width: none;
+    }
+
+    .main-content {
+        padding: 0;
+        background: white;
+    }
+
+    .todo-item {
+        border-bottom: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+
+    .todo-item:hover {
+        background: transparent;
+    }
+
+    .todo-actions {
+        display: none;
+    }
+
+    .section-title {
+        color: black;
+        border-bottom-color: black;
+    }
+
+    .todo-title {
+        color: black;
+    }
+
+    .todo-description {
+        color: #666;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --color-border: #000000;
+        --color-text-primary: #000000;
+        --color-text-secondary: #000000;
+        --color-bg-primary: #ffffff;
+        --color-bg-secondary: #ffffff;
+    }
+
+    .btn {
+        border-width: 3px;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+        border-width: 3px;
+        border-color: #000000;
+        box-shadow: none;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Focus Visible Support */
+@supports selector(:focus-visible) {
+    .btn:focus {
+        outline: none;
+    }
+
+    .btn:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+        outline: none;
+    }
+
+    .form-input:focus-visible,
+    .form-textarea:focus-visible,
+    .form-select:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: -2px;
+    }
+}

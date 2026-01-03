@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOアプリ | タスク管理ツール</title>
+    <meta name="description" content="高機能なTODOアプリ。優先度設定、期限管理、カテゴリ分類機能付き">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzMzNzNkYyI+PHBhdGggZD0iTTkgMTZoNnYtNmgtNnY2ek0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyek0xMiAyMGMtNC40MSAwLTgtMy41OS04LThzMy41OS04IDgtOCA4IDMuNTkgOCA4LTMuNTkgOC04IDh6Ii8+PC9zdmc+">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="app-icon">✓</span>
+                    TODOアプリ
+                </h1>
+                <div class="header-stats">
+                    <span class="stat-item">
+                        <span class="stat-label">総タスク</span>
+                        <span class="stat-value" id="totalTasks">0</span>
+                    </span>
+                    <span class="stat-item">
+                        <span class="stat-label">完了</span>
+                        <span class="stat-value" id="completedTasks">0</span>
+                    </span>
+                    <span class="stat-item">
+                        <span class="stat-label">残り</span>
+                        <span class="stat-value" id="remainingTasks">0</span>
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Todo Form -->
+            <section class="todo-form-section">
+                <div class="form-container">
+                    <h2 class="section-title">新しいタスクを追加</h2>
+                    <form id="todoForm" class="todo-form" aria-label="新しいタスク追加フォーム">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="todoTitle" class="form-label">タスクタイトル *</label>
+                                <input
+                                    type="text"
+                                    id="todoTitle"
+                                    name="title"
+                                    class="form-input"
+                                    placeholder="例: 買い物リストを作成する"
+                                    required
+                                    aria-describedby="titleError"
+                                    maxlength="100"
+                                >
+                                <div id="titleError" class="error-message" aria-live="polite"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="todoDescription" class="form-label">詳細説明</label>
+                                <textarea
+                                    id="todoDescription"
+                                    name="description"
+                                    class="form-textarea"
+                                    placeholder="タスクの詳細を入力してください（任意）"
+                                    rows="3"
+                                    maxlength="500"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row form-row-multi">
+                            <div class="form-group">
+                                <label for="todoCategory" class="form-label">カテゴリ</label>
+                                <select id="todoCategory" name="category" class="form-select">
+                                    <option value="">カテゴリを選択</option>
+                                    <option value="work">仕事</option>
+                                    <option value="personal">個人</option>
+                                    <option value="shopping">買い物</option>
+                                    <option value="health">健康</option>
+                                    <option value="learning">学習</option>
+                                    <option value="other">その他</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="todoPriority" class="form-label">優先度</label>
+                                <select id="todoPriority" name="priority" class="form-select">
+                                    <option value="medium">中</option>
+                                    <option value="high">高</option>
+                                    <option value="low">低</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="todoDueDate" class="form-label">期限</label>
+                                <input
+                                    type="datetime-local"
+                                    id="todoDueDate"
+                                    name="dueDate"
+                                    class="form-input"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <span class="btn-icon">+</span>
+                                タスクを追加
+                            </button>
+                            <button type="reset" class="btn btn-secondary" id="resetBtn">
+                                <span class="btn-icon">↺</span>
+                                リセット
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Filter and Sort -->
+            <section class="filter-section">
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="searchInput" class="filter-label">検索</label>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="filter-input"
+                            placeholder="タスクを検索..."
+                        >
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filterCategory" class="filter-label">カテゴリ</label>
+                        <select id="filterCategory" class="filter-select">
+                            <option value="">すべて</option>
+                            <option value="work">仕事</option>
+                            <option value="personal">個人</option>
+                            <option value="shopping">買い物</option>
+                            <option value="health">健康</option>
+                            <option value="learning">学習</option>
+                            <option value="other">その他</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filterPriority" class="filter-label">優先度</label>
+                        <select id="filterPriority" class="filter-select">
+                            <option value="">すべて</option>
+                            <option value="high">高</option>
+                            <option value="medium">中</option>
+                            <option value="low">低</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filterStatus" class="filter-label">状態</label>
+                        <select id="filterStatus" class="filter-select">
+                            <option value="">すべて</option>
+                            <option value="pending">未完了</option>
+                            <option value="completed">完了</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sortBy" class="filter-label">並び順</label>
+                        <select id="sortBy" class="filter-select">
+                            <option value="createdAt">作成日時</option>
+                            <option value="dueDate">期限</option>
+                            <option value="priority">優先度</option>
+                            <option value="title">タイトル</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button class="btn btn-outline" id="clearFilters">
+                            フィルタクリア
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Todo List -->
+            <section class="todo-list-section">
+                <div class="list-header">
+                    <h2 class="section-title">タスク一覧</h2>
+                    <div class="list-actions">
+                        <button class="btn btn-outline" id="exportBtn">
+                            <span class="btn-icon">↓</span>
+                            エクスポート
+                        </button>
+                        <button class="btn btn-outline" id="importBtn">
+                            <span class="btn-icon">↑</span>
+                            インポート
+                        </button>
+                        <input type="file" id="importFile" accept=".json" hidden>
+                    </div>
+                </div>
+
+                <div class="todo-list-container">
+                    <ul id="todoList" class="todo-list" role="list" aria-label="タスク一覧">
+                        <!-- Todo items will be dynamically inserted here -->
+                    </ul>
+
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <div class="empty-icon">📝</div>
+                        <h3 class="empty-title">タスクがありません</h3>
+                        <p class="empty-description">
+                            上のフォームから新しいタスクを追加してください
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 TODOアプリ. 高機能なタスク管理ツール</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title"></h3>
+                <button class="modal-close" aria-label="モーダルを閉じる">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Modal content will be dynamically inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modalCancel">キャンセル</button>
+                <button class="btn btn-primary" id="modalConfirm">確認</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true">
+        <!-- Toast notifications will be dynamically inserted here -->
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/todo.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/todoManager.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
